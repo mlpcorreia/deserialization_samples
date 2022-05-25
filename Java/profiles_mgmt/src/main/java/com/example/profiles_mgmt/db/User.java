@@ -8,6 +8,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,6 +25,8 @@ public class User implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    private SendEmail sendEmail;
 
     public void setUserId(Long userId) {
         this.id = userId;
@@ -64,8 +68,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        new SendEmail(email).run();
+    public SendEmail getSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(SendEmail sendEmail) {
+        this.sendEmail = sendEmail;
     }
 }

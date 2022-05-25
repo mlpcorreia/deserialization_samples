@@ -1,5 +1,6 @@
 package com.example.profiles_mgmt;
 
+import com.example.profiles_mgmt.db.SendEmail;
 import com.example.profiles_mgmt.db.User;
 import com.example.profiles_mgmt.db.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class ProfilesController {
                 user.setPassword(parameters.get("psw"));
                 user.setEmail(parameters.get("email"));
                 user.setName(parameters.get("name"));
+                user.setSendEmail(new SendEmail(parameters.get("email")));
                 userRepository.save(user);
                 return "redirect:login";
             } else {
